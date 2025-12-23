@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thần Số Học - Khám Phá Bản Thân</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --primary-color: #6d8299;
+            --accent-color: #a3b18a;
+            --text-color: #4a4a4a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 { color: var(--primary-color); margin-bottom: 0.5rem; }
+        p.subtitle { font-size: 0.9rem; color: #888; margin-bottom: 2rem; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: #55667a; }
+
+        #result {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ccc;
+            display: none;
+            text-align: left;
+        }
+
+        .number-circle {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Thần Số Học</h1>
+    <p class="subtitle">Nhập thông tin để khám phá con số chủ đạo của bạn</p>
+    
+    <input type="text" id="fullName" placeholder="Họ và tên đầy đủ (VD: Nguyen Van A)">
+    <input type="date" id="dob">
+    <button onclick="calculateNumerology()">Xem Kết Quả</button>
+
+    <div id="result">
+        <h3>Kết quả của bạn:</h3>
+        <p><strong><span class="number-circle" id="lifePathNum"></span> Con số chủ đạo (Life Path)</strong></p>
+        <p id="lifePathDesc" style="font-size: 0.9rem; line-height: 1.5;"></p>
+    </div>
+</div>
+
+<script>
+    function calculateNumerology() {
+        const dob = document.getElementById('dob').value;
+        if (!dob) return alert("Vui lòng chọn ngày sinh!");
+
+        // Tính con số chủ đạo (Life Path)
+        const digits = dob.replace(/-/g, '').split('').map(Number);
+        let sum = digits.reduce((a, b) => a + b, 0);
+        
+        while (sum > 9 && sum !== 11 && sum !== 22) {
+            sum = sum.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+        }
+
+        // Nội dung mẫu (Data thực tế bạn có thể thay thế ở đây)
+        const descriptions = {
+            2: "Bạn là người hòa giải, nhạy cảm và đầy lòng trắc ẩn.",
+            3: "Bạn có tư duy sáng tạo, khả năng giao tiếp và truyền cảm hứng tốt.",
+            4: "Bạn là người thực tế, kỷ luật và rất đáng tin cậy.",
+            5: "Bạn yêu tự do, thích khám phá và có khả năng thích nghi cao.",
+            6: "Bạn là người của gia đình, giàu tình yêu thương và trách nhiệm.",
+            7: "Bạn có tư duy phân tích, thích tìm tòi tri thức và tâm linh.",
+            8: "Bạn có khả năng lãnh đạo, điều hành và có duyên với tài chính.",
+            9: "Bạn mang lý tưởng lớn, thích giúp đỡ cộng đồng và nhân đạo.",
+            10: "Bạn linh hoạt, dễ thích nghi và có tiềm năng thành công lớn.",
+            11: "Bạn có trực giác cực kỳ nhạy bén và khả năng tâm linh cao."
+        };
+
+        document.getElementById('lifePathNum').innerText = sum;
+        document.getElementById('lifePathDesc').innerText = descriptions[sum] || "Bạn sở hữu một nguồn năng lượng đặc biệt và hiếm gặp.";
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
